@@ -1,26 +1,24 @@
-package require Img
+set defaults {"" 1 1000}
+set args [concat $argv [lrange $defaults [llength $argv] end]]
 
-set filename [lindex $argv 0]
+lassign $args filename scale rate
+if {[string equal $filename ""]} {
+    puts "Please provide a ppm file!"
+    exit
+}
+
 set fp [open $filename r]
 set data [read $fp]
 close $fp
 
-set scale 1
-if {[llength $argv] > 1} {
-    set scale [lindex $argv 1]
-}
-
+# remove comments
 regsub -all {#[^\n]*\n} $data " " data
 lassign $data type w h depth
 set data [lrange $data 4 end]
 
-
-set c [canvas .c -width [expr $scale * $w] -height [expr $scale * $h] -bg black]
-pack $c
-
-
-proc every {ms body} {
-    eval $body; after $ms [namespace code [info level 0]]
+if {![string equal $type P3]} {
+    puts "$filename type was $type, but expected P3"
+    exit
 }
 
 proc hexcolor {r g b} {
@@ -29,6 +27,9 @@ proc hexcolor {r g b} {
 }
 
 set running 0
+
+set c [canvas .c -width [expr $scale * $w] -height [expr $scale * $h] -bg black]
+pack $c
 
 proc display {} {
     global running data w h c scale
@@ -55,10 +56,12 @@ proc display {} {
     update
 }
 
-every 2000 display
+proc every {ms body} {
+    eval $body; after $ms [namespace code [info level 0]]
+}
 
+every $rate display
 vwait running
-
-after 2000
+after $rate
 
 exit
