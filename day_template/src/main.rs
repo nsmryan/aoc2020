@@ -6,7 +6,7 @@ use gumdrop::Options;
 
 
 #[derive(Debug, Clone, Options)]
-pub struct GameOptions {
+pub struct Opts {
     #[options(help = "some help text")]
     pub opt1: Option<String>,
 
@@ -29,7 +29,7 @@ fn read_file(file_name: &str) -> Vec<String> {
 }
 
 fn main() {
-    let opts = GameOptions::parse_args_default_or_exit();
+    let opts = Opts::parse_args_default_or_exit();
 
     let name = "view.tcl";
     let lines = read_file(name);
