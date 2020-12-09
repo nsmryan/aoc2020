@@ -23,15 +23,12 @@ proc nop {arg} {
 
 proc jmp {arg} {
     global ip 
-
     set ip [expr $ip + $arg]
 }
 
 proc acc {arg} {
     global ip accum
-
     incr ip
-
     set accum [expr $accum + $arg]
 }
 
