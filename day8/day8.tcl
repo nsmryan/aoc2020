@@ -75,7 +75,6 @@ for {set i 0} {$i < [llength $lines]} {incr i} {
     set oldline [lindex $lines $i]
     set newline [swapop $oldline]
     if {[string equal $oldline $newline]} {
-        puts "$i $oldline"
         continue
     }
 
@@ -83,7 +82,7 @@ for {set i 0} {$i < [llength $lines]} {incr i} {
     set result [run $lines]
     lset lines $i $oldline
 
-    puts "$i $result $accum"
+    #puts "$i $result $accum"
     if {[string equal $result found]} {
         puts "i = $i"
         puts "accum = $accum"
