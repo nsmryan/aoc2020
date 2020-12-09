@@ -76,7 +76,6 @@ uint64_t solve(uint64_t *nums, uint32_t numsSize, uint32_t preamble_length) {
 
                 if ((nums[offset + first] + nums[offset + second]) == nums[index]) {
                     found = true;
-                    printf("%d (%d, %d) | %lld + %lld == %lld\n", index, first, second, nums[first], nums[second], nums[index]);
                 }
             }
         }
