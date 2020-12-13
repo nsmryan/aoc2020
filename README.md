@@ -2,7 +2,7 @@
 This repository contains my solutions to the Advent of Code for 2020.
 
 
-I've been using a series of languages, changing between days or resolving
+I've been using a series of languages, changing between days or solving
 days with different languages, so here is a record of what I've used:
 
 
