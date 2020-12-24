@@ -1,0 +1,58 @@
+from collections import deque
+import sys
+
+filename = "day24.txt"
+#filename = "example.txt"
+
+DIRS = ['e', 'w', 'se', 'sw', 'ne', 'nw']
+mapping = {}
+mapping['e'] = [1, 0]
+mapping['w'] = [-1, 0]
+mapping['ne'] = [0, 1]
+mapping['nw'] = [-1, 1]
+mapping['se'] = [1, -1]
+mapping['sw'] = [0, -1]
+
+def parse_line(line):
+    index = 0
+    dirs = []
+    while index < len(line):
+        if line[index] in ['w', 'e']:
+            dirs.append(line[index])
+        else:
+            dirs.append(line[index:index+2])
+            index += 1
+
+        index += 1
+
+    return dirs
+
+def combine(a, b):
+    return map(sum, zip(a, b))
+
+def normalize(dirs):
+    result = reduce(combine, [mapping[d] for d in dirs])
+    return (result[0], result[1])
+
+def adjacent(pos):
+    return [combine(pos, offset) for offset in mappings.values()]
+
+f = open(filename, "r")
+data = f.read()
+lines = [line.strip() for line in data.split('\n') if len(line) > 0]
+
+
+dirs = map(parse_line, lines)
+canon = map(normalize, dirs)
+
+counts = {can: 0 for can in canon}
+for can in canon:
+    counts[can] += 1
+
+floor = []
+for can in counts.keys():
+    if counts[can] % 2 == 1:
+        floor.append(can)
+
+print(len(floor))
+
